@@ -6,8 +6,7 @@ public class Ex06 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		
-		
+				
 		char[][] tabuleiro = new char[3][3];
 		
 		char[] simbolos = {'x', 'o'};
@@ -32,10 +31,10 @@ public class Ex06 {
 				
 		     simbolo = simbolos[1];}
 			
-			 System.out.println( "jogador " + playerTime + " posicao da linha: ");
+			 System.out.println( "(jogador " + playerTime + ") posicao da linha: ");
 			 int linha = sc.nextInt();
 			 
-			 System.out.println("jogador " + playerTime + "posicao da coluna: ");
+			 System.out.println("(jogador " + playerTime + ") posicao da coluna: ");
 			 int coluna = sc.nextInt();	
 			
 			 if(tabuleiro[linha][coluna] == '/') { 
@@ -53,10 +52,29 @@ public class Ex06 {
 						System.out.print(tabuleiro[m][j] + " ");
 					}
 					System.out.println();
-				}
+				}			 
 			 
-			playerTime = 2;
-			
+			 boolean win1 = tabuleiro[0][0] == simbolo &&  tabuleiro[1][1] == simbolo && tabuleiro[2][2] == simbolo;
+			 boolean win2 = tabuleiro[0][0] == simbolo &&  tabuleiro[0][1] == simbolo && tabuleiro[0][2] == simbolo;
+			 boolean win3 = tabuleiro[1][0] == simbolo &&  tabuleiro[1][1] == simbolo && tabuleiro[1][2] == simbolo;
+			 boolean win4 = tabuleiro[2][0] == simbolo &&  tabuleiro[2][1] == simbolo && tabuleiro[2][2] == simbolo;
+			 boolean win5 = tabuleiro[0][0] == simbolo &&  tabuleiro[1][0] == simbolo && tabuleiro[2][0] == simbolo;
+			 boolean win6 = tabuleiro[0][1] == simbolo &&  tabuleiro[1][1] == simbolo && tabuleiro[2][1] == simbolo;
+			 boolean win7 = tabuleiro[0][2] == simbolo &&  tabuleiro[1][2] == simbolo && tabuleiro[2][2] == simbolo;
+			 boolean win8 = tabuleiro[2][0] == simbolo &&  tabuleiro[1][1] == simbolo && tabuleiro[0][2] == simbolo;
+			 			 
+			 if(win1 || win2 || win3 || win4 || win5 || win6 || win7 || win8 ) {
+				 
+				 System.out.println("Parabens voce venceu");
+				 break;				 
+			 }
+			 
+			if(playerTime == 1) { 
+				
+			   playerTime = 2;
+			}else {
+			   playerTime = 1;
+			}		
 		}
 			
 		sc.close();

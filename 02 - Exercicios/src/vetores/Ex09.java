@@ -15,9 +15,6 @@ public class Ex09 {
 		indice =  (int) (Math.random() * 10);
 		}while(indice >= 4);
 		
-		
-		System.out.println(indice);
-		
 		char[] palavra = new char[palavras[indice].length()];
 		
 		char[] palavraCompleta = new char[palavras[indice].length()];
