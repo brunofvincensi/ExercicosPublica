@@ -1,6 +1,6 @@
 package arrays.ex01;
 
-public class Pessoa {
+public class Contato {
 	
 	private String nome;
 	private int idade;
@@ -8,11 +8,11 @@ public class Pessoa {
 	private String telefone;
 	private String cidade;
 	
-	public Pessoa() {
+	public Contato() {
 		
 	}
 	
-	public Pessoa(String nome, int idade, String email, String telefone, String cidade) {
+	public Contato(String nome, int idade, String email, String telefone, String cidade) {
 		super();
 		this.nome = nome;
 		this.idade = idade;
