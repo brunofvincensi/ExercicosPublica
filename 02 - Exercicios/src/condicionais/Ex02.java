@@ -5,13 +5,13 @@ import javax.swing.JOptionPane;
 public class Ex02 {
 
 	public static void main(String[] args) {
-		
-        int x1 = Integer.parseInt(JOptionPane.showInputDialog("insira um numero")) ;
-		int x2 = Integer.parseInt(JOptionPane.showInputDialog("insira um numero")) ;
-		
-		if(x1 == x2) {
+
+		int x1 = Integer.parseInt(JOptionPane.showInputDialog("insira um numero"));
+		int x2 = Integer.parseInt(JOptionPane.showInputDialog("insira um numero"));
+
+		if (x1 == x2) {
 			JOptionPane.showMessageDialog(null, x1 + x2);
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, x1 * x2);
 		}
 
