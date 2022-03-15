@@ -38,7 +38,7 @@ public class Main {
 				"Yuri Gagarin", "A cadela Laika", "Neil Armstrong", "Marcos Pontes", "1", "foi no ano 1961");
 		
 		Pergunta p2 = new Pergunta("Quanto é 3 + 5", 
-				"4", "3", "8", "2", "3", "sem dica");
+				"4", "3", "8", "2", "3", "sem dica, tem que ser muito debil pra errar");
 		
 		Pergunta p3 = new Pergunta("Onde se localiza Machu Picchu?", 
 				"Colômbia", "Peru", "China", "Bolívia", "2", "faz fronteira com o Brasil");
@@ -97,10 +97,10 @@ public class Main {
 				
 				System.out.println(perguntas.get(index).getPerguta());
 				
-				System.out.println("a) " + perguntas.get(index).getAlt1());
-				System.out.println("b) " + perguntas.get(index).getAlt2());
-				System.out.println("c) " + perguntas.get(index).getAlt3());
-				System.out.println("d) " + perguntas.get(index).getAlt4());
+				System.out.println("1) " + perguntas.get(index).getAlt1());
+				System.out.println("2) " + perguntas.get(index).getAlt2());
+				System.out.println("3) " + perguntas.get(index).getAlt3());
+				System.out.println("4) " + perguntas.get(index).getAlt4());
 				
 				Pergunta p = perguntas.get(index);
 				
@@ -110,13 +110,13 @@ public class Main {
 				
 				String menu = "";
 				
-				if(pularQuestao <= 2) {
+				if(pularQuestao < 2) {
 					menu += "(1) -> Pular questao \n";
 				}
-				if(eliminar <= 1) {
+				if(eliminar < 1) {
 					menu += "(2) -> Eliminar uma alternativa \n";
 				}
-				if(dicas <= 1) {
+				if(dicas < 1) {
 					menu += "(3) -> Usar a dica \n";
 				}
 				menu += "(4) -> Prosseguir sem ajuda";
