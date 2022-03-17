@@ -6,5 +6,4 @@ public class Main {
 		Action a = new Action();
 
 	}
-
 }

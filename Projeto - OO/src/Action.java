@@ -5,10 +5,16 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import enums.Nivel;
+import enums.TipoGenero;
 import models.Autor;
 import models.Livro;
 import models.Usuario;
+import sections.AdminSection;
+import sections.ClienteSection;
+import sections.LivrariaSection;
 import services.LoginService;
+import services.impl.AutorServiceImpl;
+import services.impl.LivroServiceImpl;
 import services.impl.UsuarioServiceImpl;
 
 public class Action {
@@ -19,12 +25,21 @@ public class Action {
 	List<Livro> livros = new ArrayList<>();
 
 	UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
-
-	int senhasErradas = 0;
-
-	int respostasErradas = 0;
+	LivroServiceImpl livroService = new LivroServiceImpl();
+	AutorServiceImpl autorService = new AutorServiceImpl();
 
 	public Action() {
+		
+		
+		Autor a1 = new Autor("Pedro",  40, "pedro@gmail.com");
+		Autor a2 = new Autor("Marcos",  40, "marcos@gmail.com");
+		
+		autorService.save(a1);
+		autorService.save(a2);
+		
+		Livro l1 = new Livro("Hero", 40, TipoGenero.ACAO , 500, a1);
+		
+		livroService.save(l1);
 
 		criarAdmin();
 
@@ -48,9 +63,30 @@ public class Action {
 		Usuario admin = new Usuario("Bruno Ferrari", "bruno@gmail.com", "bvincensi", "12345",
 				"qual é meu esporte favorito?", "basket", 18);
 
-		admin.setNivel(Nivel.Administrador);
-		usuarioService.cadastrar(admin);
+		
+		
+		Usuario u1 = new Usuario("Joao Pedro", "joao@gmail.com", "joaozinho", "joao123",
+				"qual é meu esporte favorito?", "basket", 54);
 
+		
+		Usuario u2 = new Usuario("Ana Maria", "maria@gmail.com", "amaria", "maria123",
+				"qual é meu esporte favorito?", "basket", 23);
+
+		
+		Usuario gerente = new Usuario("Gerente1", "gerente@gmail.com", "teste", "123",
+				"qual é meu esporte favorito?", "basket", 56);
+
+		gerente.setNivel(Nivel.GERENTE);
+		
+		
+		admin.setNivel(Nivel.ADMIN);
+		usuarioService.save(admin);
+		
+		usuarioService.save(u1);
+		
+		usuarioService.save(u2);
+		
+		usuarioService.save(gerente);
 	}
 
 	private String menuPrincipal() {
@@ -99,13 +135,14 @@ public class Action {
 
 		String resposta = JOptionPane.showInputDialog("Resposta da pergunta secreta: ");
 
-		usuarioService.cadastrar(new Usuario(nome, email, login, senha, perguntaSecreta, resposta, idade));
+		usuarioService.save(new Usuario(nome, email, login, senha, perguntaSecreta, resposta, idade));
 	}
 
 	private void esqueciMinhaSenha() throws InterruptedException {
 
+		int respostasErradas = 0;
+		
 		String login = JOptionPane.showInputDialog("Login: ");
-
 		String email = JOptionPane.showInputDialog("Email: ");
 
 		String pergunta = usuarioService.esqueciMinhaSenha(login, email);
@@ -139,7 +176,6 @@ public class Action {
 
 				setTimeOut(6);
 
-
 			}
 		}
 	}
@@ -147,44 +183,59 @@ public class Action {
 	private void fazerLogin() {
 
 		boolean acertou = false;
-		
-		
+
 		String login = JOptionPane.showInputDialog("Login: ");
 
 		String senha = JOptionPane.showInputDialog("Senha: ");
+		
+		int senhasErradas = 0;
 
 		while (!acertou) {
 
 			if (senhasErradas <= 3) {
 
 				if (usuarioService.autenticar(login, senha)) {
-
 					System.out.println("Autenticado");
+					Usuario u = usuarioService.findBy(login).get();
+					Nivel nivel = u.getNivel();
+					senhasErradas = 0;
+
+					if (nivel == Nivel.ADMIN) {
+
+						System.out.println("Admin");
+						AdminSection adm = new AdminSection();
+
+					} else if (nivel == Nivel.GERENTE) {
+
+						System.out.println("Gerente");
+						LivrariaSection gs = new LivrariaSection();
+
+					} else {
+						System.out.println("Cliente");
+						ClienteSection cli = new ClienteSection(u);
+
+					}
+
 					acertou = true;
 				} else {
-					
-					
+
 					senha = JOptionPane.showInputDialog("Senha incorreta, tente novamente: ");
 					senhasErradas++;
-					setTimeOut(6);
+					
 
 				}
 
 			} else {
-				
+				setTimeOut(6);
 				acertou = true;
 				senhasErradas = 0;
 
-				
-
 			}
 
-		}	
-		
+		}
 
 	}
-	
-	
+
 	private static void setTimeOut(int segundos) {
 		LocalDateTime fim = LocalDateTime.now().plusSeconds(segundos);
 
@@ -194,8 +245,5 @@ public class Action {
 
 		}
 	}
-	
-	
-	
-	
+
 }

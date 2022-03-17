@@ -2,7 +2,7 @@ package enums;
 
 public enum TipoGenero {
 	
-	Acao, Romance, Terror, Suspense, FICCAO_CIENTIFICA;
+	ACAO, ROMANCE, TERROR, SUSPENSE, FICCAO_CIENTIFICA;
 	
 
 }

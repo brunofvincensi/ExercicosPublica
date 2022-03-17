@@ -2,5 +2,5 @@ package enums;
 
 public enum Nivel {
 
-	Administrador, Gerente, Cliente;
+	ADMIN, GERENTE, CLIENTE;
 }

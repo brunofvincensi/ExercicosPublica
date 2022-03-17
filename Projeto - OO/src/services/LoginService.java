@@ -1,16 +1,21 @@
 package services;
 
-import models.Usuario;
 
-public interface LoginService {
+// classe abstrata a ser implementada
+public abstract class LoginService {
 
-	boolean autenticar(String login, String senha);
+	public boolean autenticar(String login, String senha) {
+		return false;
+	}
 	
-	String esqueciMinhaSenha(String login, String email);
+	public String esqueciMinhaSenha(String login, String email) {
+		return null;
+	}
 	
-	boolean checarResposta(String login, String resposta);
+	public boolean checarResposta(String login, String resposta) {
+		return false;
+	}
 	
-	void cadastrar(Usuario usuario);
-	
-	
+	public void alterarSenha(String login, String novaSenha) {
+	}
 }

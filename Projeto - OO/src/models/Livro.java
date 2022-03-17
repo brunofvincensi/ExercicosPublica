@@ -9,9 +9,10 @@ public class Livro {
 	private TipoGenero genero;
 	private double valor;
 	private Autor autor;
+	private int vendas;
 	
 	public Livro() {
-		super();
+		vendas = 0;
 	}
 	
 	public Livro(String nome, int numPaginas, TipoGenero genero, double valor, Autor autor) {
@@ -21,6 +22,7 @@ public class Livro {
 		this.genero = genero;
 		this.valor = valor;
 		this.autor = autor;
+		vendas = 0;
 	}
 
 	public String getNome() {
@@ -62,5 +64,22 @@ public class Livro {
 	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
+
+	public int getVendas() {
+		return vendas;
+	}
+
+	public void addVenda() {
+		this.vendas++;
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Livro [nome=" + nome + ", numPaginas=" + numPaginas + ", genero=" + genero + ", valor=R$" + valor
+				+ ", autor=" + autor + ", vendas=" + vendas + "]";
+	}
+	
+	
 	
 }

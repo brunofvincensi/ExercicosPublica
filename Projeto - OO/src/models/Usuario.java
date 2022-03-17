@@ -11,13 +11,13 @@ public class Usuario extends Pessoa{
 	private String respostaPergunta;
 	
 	public Usuario() {
-		nivel = Nivel.Cliente;
+		nivel = Nivel.CLIENTE;
 	}
 	
 	public Usuario(String nome, String email, String login, String senha,
 			String perguntaSecreta, String respostaPergunta, int idade) {
 		super(nome, email, idade );
-		this.nivel = Nivel.Cliente;;
+		this.nivel = Nivel.CLIENTE;;
 		this.login = login;
 		this.senha = senha;
 		this.perguntaSecreta = perguntaSecreta;
@@ -55,5 +55,13 @@ public class Usuario extends Pessoa{
 	}
 	public void setRespostaPergunta(String respostaPergunta) {
 		this.respostaPergunta = respostaPergunta;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [nivel=" + nivel + ", login=" + login + ", senha=" + senha + ", perguntaSecreta="
+				+ perguntaSecreta + ", respostaPergunta=" + respostaPergunta + ", + " + super.toString() + "]";
+	}
+
+	
 }

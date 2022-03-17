@@ -2,6 +2,8 @@ package models;
 
 public class Pessoa {
 	
+	
+
 	private String nome;	
 	private String email;
 	private int idade;
@@ -38,6 +40,11 @@ public class Pessoa {
 
 	public void setIdade(int idade) {
 		this.idade = idade;
+	}
+	
+	@Override
+	public String toString() {
+		return " nome=" + nome + ", email=" + email + ", idade=" + idade;
 	}
 	
 	
