@@ -1,21 +1,22 @@
 package models;
 
+import enums.Estado;
+
 public class Pessoa {
 	
-	
-
 	private String nome;	
 	private String email;
 	private int idade;
+	private Estado estado;
 	
 	public Pessoa() {
-		super();
 	}
 
-	public Pessoa(String nome, String email, int idade) {
+	public Pessoa(String nome, String email, int idade, Estado estado) {
 		this.nome = nome;
 		this.email = email;
 		this.idade = idade;
+		this.estado = estado;
 	}
 
 	public String getNome() {
@@ -41,11 +42,18 @@ public class Pessoa {
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
-	
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
 	@Override
 	public String toString() {
-		return " nome=" + nome + ", email=" + email + ", idade=" + idade;
+		return "nome=" + nome + ", email=" + email + ", idade=" + idade + ", estado=" + estado;
 	}
-	
 	
 }

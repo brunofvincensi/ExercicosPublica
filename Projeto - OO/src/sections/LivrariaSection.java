@@ -2,20 +2,22 @@ package sections;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import auxiliares.ListarEstados;
+import enums.Estado;
 import enums.TipoGenero;
+import exceptions.AutorNotFoundException;
 import models.Autor;
 import models.Livro;
 import services.impl.AutorServiceImpl;
 import services.impl.LivroServiceImpl;
 
-public class LivrariaSection {
+// classe para abrir a secao de gerencia da livraria
+public class LivrariaSection extends ListarEstados {
 
 	LivroServiceImpl livroService = new LivroServiceImpl();
 	AutorServiceImpl autorService = new AutorServiceImpl();
 
 	public LivrariaSection() {
-		
-		
 
 		boolean sair = false;
 
@@ -151,15 +153,14 @@ public class LivrariaSection {
 
 		livroService.delete(nomeLivro);
 		JOptionPane.showMessageDialog(null, "Livro excluido");
-		
-		
+
 	}
 
 	private void alterarLivro() {
-		
+
 		String nomeLivro = JOptionPane.showInputDialog("Insira o nome do livro a ser alterado");
-		
-		if(livroService.findBy(nomeLivro).isEmpty()) {
+
+		if (livroService.findBy(nomeLivro).isEmpty()) {
 			throw new RuntimeException("Livro não existe");
 		}
 
@@ -197,15 +198,14 @@ public class LivrariaSection {
 		String nomeAutor = JOptionPane.showInputDialog("Insira o novo nome do autor: ");
 
 		Autor autor = autorService.findBy(nomeAutor).orElseThrow(() -> new RuntimeException("Autor não existe"));
-		
+
 		livroService.update(nomeLivro, new Livro(nome, numPaginas, genero, valor, autor));
-		
+
 		JOptionPane.showMessageDialog(null, "Livro alterado");
 	}
 
 	// --------------------------------------------
 
-	
 	private void inserirAutor() {
 
 		String nome = JOptionPane.showInputDialog("Insira o nome: ");
@@ -214,7 +214,9 @@ public class LivrariaSection {
 
 		int idade = Integer.parseInt(JOptionPane.showInputDialog("Insira a idade: "));
 
-		autorService.save(new Autor(nome, idade, email));
+		Estado estado = listarEstados();
+
+		autorService.save(new Autor(nome, idade, email, estado));
 	}
 
 	private void listarAutores() {
@@ -230,25 +232,27 @@ public class LivrariaSection {
 
 		JOptionPane.showMessageDialog(null, lista);
 	}
-	
+
 	private void deletarAutor() {
-		String nome = JOptionPane.showInputDialog("Insira o nome do autor a ser excluido");	
+		String nome = JOptionPane.showInputDialog("Insira o nome do autor a ser excluido");
 		autorService.delete(nome);
 	}
-	
+
 	private void alterarAutor() {
-		
+
 		String nome = JOptionPane.showInputDialog("Insira o nome do autor a ser alterado");
-		
-		Autor autor = autorService.findBy(nome).orElseThrow();
-			
+
+		autorService.findBy(nome).orElseThrow(() -> new AutorNotFoundException());
+
 		String novoNome = JOptionPane.showInputDialog("Insira o novo nome: ");
 
 		String novoEmail = JOptionPane.showInputDialog("Insira o novo e-mail: ");
 
 		int novaIdade = Integer.parseInt(JOptionPane.showInputDialog("Insira a nova idade: "));
-		
-		
-		autorService.update(nome, new Autor(novoNome, novaIdade, novoEmail));
+
+		Estado estado = listarEstados();
+
+		autorService.update(nome, new Autor(novoNome, novaIdade, novoEmail, estado));
 	}
+
 }

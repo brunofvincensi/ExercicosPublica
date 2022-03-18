@@ -1,21 +1,16 @@
 package services;
 
+import services.impl.UsuarioServiceImpl;
 
-// classe abstrata a ser implementada
-public abstract class LoginService {
+public interface LoginService {
 
-	public boolean autenticar(String login, String senha) {
-		return false;
-	}
+	UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
 	
-	public String esqueciMinhaSenha(String login, String email) {
-		return null;
-	}
+	public boolean autenticar(String login, String senha);
 	
-	public boolean checarResposta(String login, String resposta) {
-		return false;
-	}
+	public String esqueciMinhaSenha(String login, String email);
 	
-	public void alterarSenha(String login, String novaSenha) {
-	}
+	public boolean checarResposta(String login, String resposta);
+	
+	public void alterarSenha(String login, String novaSenha);
 }

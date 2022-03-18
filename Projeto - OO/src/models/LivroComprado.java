@@ -7,15 +7,17 @@ public class LivroComprado {
 	private Usuario usuario;	
 	private Livro livro;
 	private LocalDateTime horarioDaCompra;
+	private int quantidade;
 	
 	public LivroComprado() {
 		super();
 	}
 	
-	public LivroComprado(Usuario usuario, Livro livro) {
+	public LivroComprado(Usuario usuario, Livro livro, int quantidade) {
 		super();
 		this.usuario = usuario;
 		this.livro = livro;
+		this.quantidade = quantidade;
 		this.horarioDaCompra = LocalDateTime.now();
 	}
 	
@@ -37,13 +39,23 @@ public class LivroComprado {
 	public void setHorarioDaCompra(LocalDateTime horarioDaCompra) {
 		this.horarioDaCompra = horarioDaCompra;
 	}
+	
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+	
+	public double getTotalPrice() {
+		return quantidade * livro.getValor();
+	}
 
 	@Override
 	public String toString() {
-		return "LivroComprado [usuario=" + usuario + ", livro=" + livro + ", horarioDaCompra=" + horarioDaCompra
-				+ ", toString()=" + super.toString() + "]";
+		return "LivroComprado [usuario=" + usuario.getLogin() + ", livro=" + livro.getNome() + ", horarioDaCompra=" + horarioDaCompra
+				+ ", quantidade=" + quantidade + ", valorTotal=" + getTotalPrice() + "]";
 	}
-	
-	
-	
+
 }

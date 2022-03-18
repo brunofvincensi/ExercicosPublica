@@ -53,7 +53,7 @@ public class AutorServiceImpl implements CrudGenericService<Autor> {
 
 	@Override
 	public void update(String nome, Autor autor) {
-
+		
 		for(int i = 0; i < autores.size(); i++) {
 			
 			Autor a = autores.get(i);
@@ -71,6 +71,7 @@ public class AutorServiceImpl implements CrudGenericService<Autor> {
 						livro.setAutor(autor);
 						
 						livroService.update(livro.getNome(), livro);
+						
 					}
 					
 				}
@@ -79,6 +80,7 @@ public class AutorServiceImpl implements CrudGenericService<Autor> {
 				break;
 			}
 		}
+		
 	}
 
 	@Override

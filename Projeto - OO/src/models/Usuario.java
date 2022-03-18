@@ -1,5 +1,6 @@
 package models;
 
+import enums.Estado;
 import enums.Nivel;
 
 public class Usuario extends Pessoa{
@@ -15,8 +16,8 @@ public class Usuario extends Pessoa{
 	}
 	
 	public Usuario(String nome, String email, String login, String senha,
-			String perguntaSecreta, String respostaPergunta, int idade) {
-		super(nome, email, idade );
+			String perguntaSecreta, String respostaPergunta, int idade, Estado estado) {
+		super(nome, email, idade, estado);
 		this.nivel = Nivel.CLIENTE;;
 		this.login = login;
 		this.senha = senha;
@@ -60,7 +61,7 @@ public class Usuario extends Pessoa{
 	@Override
 	public String toString() {
 		return "Usuario [nivel=" + nivel + ", login=" + login + ", senha=" + senha + ", perguntaSecreta="
-				+ perguntaSecreta + ", respostaPergunta=" + respostaPergunta + ", + " + super.toString() + "]";
+				+ perguntaSecreta + ", respostaPergunta=" + respostaPergunta + ", " + super.toString() + "]";
 	}
 
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import enums.TipoGenero;
 import exceptions.LivroNotFoundException;
 import models.Autor;
 import models.Livro;
@@ -72,8 +73,4 @@ public class LivroServiceImpl implements CrudGenericService<Livro> {
 
 		return Optional.empty();
 	}
-
-	
-	
-
 }

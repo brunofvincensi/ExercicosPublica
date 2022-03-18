@@ -2,16 +2,23 @@ package sections;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+
+import auxiliares.ListarEstados;
+import enums.Estado;
 import enums.Nivel;
 import exceptions.UsuarioNotFoundException;
+import models.LivroComprado;
 import models.Usuario;
+import services.impl.LivroCompradoServiceImpl;
 import services.impl.UsuarioServiceImpl;
 
-public class AdminSection {
+// classe para abrir a secao do administrador
+public class AdminSection extends ListarEstados {
 
 	UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
+	LivroCompradoServiceImpl livroCompradoService = new LivroCompradoServiceImpl();
 
-	public AdminSection() {
+	public AdminSection(Usuario usuario) {
 
 		boolean sair = false;
 
@@ -20,11 +27,13 @@ public class AdminSection {
 			int opcao = Integer.parseInt(JOptionPane.showInputDialog(menu()));
 
 			switch (opcao) {
-			case 1: gerenciarUsuarios();
+			case 1: gerenciarUsuarios(usuario);
 			break;
 			case 2: gerenciarLivraria();
 			break;
-			case 3: sair = true;
+			case 3: listarCompras();
+			break;
+			case 4: sair = true;
 			break;
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + opcao);
@@ -34,7 +43,21 @@ public class AdminSection {
 
 	}
 	
-	private void gerenciarUsuarios() {
+	private void listarCompras() {
+		
+		List<LivroComprado> livrosComprados = livroCompradoService.findAll();
+		
+		String lista = "";
+		
+		for(LivroComprado lc : livrosComprados) {
+			
+			lista += lc + "\n";
+		}
+			JOptionPane.showMessageDialog(null, lista);	
+		
+	}
+
+	private void gerenciarUsuarios(Usuario usuario) {
 		
 		boolean sair = false;
 		
@@ -48,7 +71,7 @@ public class AdminSection {
 			break;
 			case 2: alterarUsuario();
 			break;
-			case 3: deletarUsuario();
+			case 3: deletarUsuario(usuario);
 			break;
 			case 4: inserirGerente();
 			break;
@@ -84,7 +107,7 @@ public class AdminSection {
 			lista += u + " \n";
 		}
 		
-		Usuario u =new Usuario();
+		Usuario u = new Usuario();
 
 		
 		JOptionPane.showMessageDialog(null, lista);
@@ -95,9 +118,13 @@ public class AdminSection {
 		String nome = JOptionPane.showInputDialog("Insira o nome: ");
 
 		String email = JOptionPane.showInputDialog("Insira o e-mail: ");
+		
+		usuarioService.validarEmail(email);
 
 		int idade = Integer.parseInt(JOptionPane.showInputDialog("Insira a idade: "));
 
+		Estado estado = listarEstados();
+		
 		String login = JOptionPane.showInputDialog("Crie o login: ");
 		
         if(!usuarioService.findBy(login).isEmpty()) {
@@ -112,7 +139,7 @@ public class AdminSection {
 
 		
 		
-		Usuario gerente = new Usuario(nome, email, login, senha, perguntaSecreta, resposta, idade);
+		Usuario gerente = new Usuario(nome, email, login, senha, perguntaSecreta, resposta, idade, estado);
 		gerente.setNivel(Nivel.GERENTE);
 		
 		usuarioService.save(gerente);
@@ -120,9 +147,13 @@ public class AdminSection {
 	}
 	
 	
-	private void deletarUsuario() {
+	private void deletarUsuario(Usuario usuario) {
 		
 		String login = JOptionPane.showInputDialog("Insira o login do usuario");
+		
+		if(login.equals(usuario.getLogin())) {
+			throw new RuntimeException("Não pode deletar a conta admin");
+		}
 		
 		usuarioService.delete(login);
 		
@@ -141,9 +172,12 @@ public class AdminSection {
 		String novoNome = JOptionPane.showInputDialog("Insira o novo nome: ");
 
 		String novoEmail = JOptionPane.showInputDialog("Insira o novo e-mail: ");
-
+		usuarioService.validarEmail(novoEmail);
+		
 		int novaIdade = Integer.parseInt(JOptionPane.showInputDialog("Insira a nova idade: "));
 
+		Estado estado = listarEstados();
+		
 		String novoLogin = JOptionPane.showInputDialog("Insira o novo login: ");
 		
         if(!usuarioService.findBy(novoLogin).isEmpty()) {
@@ -155,8 +189,10 @@ public class AdminSection {
 		String novaPerguntaSecreta = JOptionPane.showInputDialog("Insira a nova pergunta secreta: ");
 
 		String novaResposta = JOptionPane.showInputDialog("Insira a nova reposta: ");
-
-		Usuario novoUsuario = new Usuario(novoNome, novoEmail, novoLogin, novaSenha, novaPerguntaSecreta, novaResposta, novaIdade);
+		
+		
+		Usuario novoUsuario = new Usuario(novoNome, novoEmail, novoLogin, novaSenha,
+				novaPerguntaSecreta, novaResposta, novaIdade, estado);
 		
 		usuarioService.update(login, novoUsuario);
 		
@@ -172,7 +208,8 @@ public class AdminSection {
 
 		String menu = "(1) Gerenciar usuarios \n";
 		menu += "(2) Gerenciar livraria \n";
-		menu += "(3) Sair";
+		menu += "(3) Listar compras dos livros \n";
+		menu += "(4) Sair";
 
 		return menu;
 	}

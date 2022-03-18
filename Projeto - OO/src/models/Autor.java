@@ -1,5 +1,6 @@
 package models;
 
+import enums.Estado;
 
 public class Autor extends Pessoa{
 	
@@ -7,8 +8,8 @@ public class Autor extends Pessoa{
 		super();
 	}
 
-	public Autor(String nome, int idade, String email) {
-		super(nome, email, idade );		
+	public Autor(String nome, int idade, String email, Estado estado) {
+		super(nome, email, idade, estado);		
 	}
 
 

@@ -1,26 +1,20 @@
 package services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import enums.Nivel;
 import exceptions.UsuarioNotFoundException;
 import models.Usuario;
-import services.CrudGenericService;
-import services.LoginService;
+import services.UsuarioService;
 
-public class UsuarioServiceImpl extends LoginService implements CrudGenericService<Usuario>{
+public class UsuarioServiceImpl extends UsuarioService {
 
-	private static List<Usuario> usuarios = new ArrayList<>();
-	
 	@Override
 	public void save(Usuario usuario) {
 
 		usuarios.add(usuario);
 
 	}
-	
+
 	@Override
 	public List<Usuario> findAll() {
 		return usuarios;
@@ -28,20 +22,20 @@ public class UsuarioServiceImpl extends LoginService implements CrudGenericServi
 
 	@Override
 	public void update(String login, Usuario usuario) {
-		
+
 		for (int i = 0; i < usuarios.size(); i++) {
 
 			if (usuarios.get(i).getLogin().equals(login)) {
-				
-				if(usuarios.get(i).getNivel() == Nivel.GERENTE) {
-					
+
+				if (usuarios.get(i).getNivel() == Nivel.GERENTE) {
+
 					usuario.setNivel(Nivel.GERENTE);
-					
-				}else if(usuarios.get(i).getNivel() == Nivel.ADMIN) {
-					
-					usuario.setNivel(Nivel.ADMIN);					
+
+				} else if (usuarios.get(i).getNivel() == Nivel.ADMIN) {
+
+					usuario.setNivel(Nivel.ADMIN);
 				}
-				
+
 				usuarios.set(i, usuario);
 				break;
 			}
@@ -51,19 +45,18 @@ public class UsuarioServiceImpl extends LoginService implements CrudGenericServi
 
 	@Override
 	public void delete(String login) {
-		Usuario u = 
-				findBy(login)
-				.orElseThrow(() -> new UsuarioNotFoundException());
-		
+		Usuario u = findBy(login).orElseThrow(() -> new UsuarioNotFoundException());
+
 		usuarios.remove(u);
 
 	}
 
-	// ---------------------------------------------
-
+	/**
+	 * pega o login e a senha para verificar se o usuario existe
+	 */
 	@Override
 	public boolean autenticar(String login, String senha) {
-		
+
 		Usuario u = findBy(login).orElseThrow(() -> new RuntimeException("Usuario não existe"));
 
 		if (u.getSenha().equals(senha)) {
@@ -76,6 +69,9 @@ public class UsuarioServiceImpl extends LoginService implements CrudGenericServi
 
 	}
 
+	/**
+	 * checa se existe o usuario e retorna a pergunta secreta
+	 */
 	@Override
 	public String esqueciMinhaSenha(String login, String email) {
 
@@ -93,21 +89,6 @@ public class UsuarioServiceImpl extends LoginService implements CrudGenericServi
 
 	}
 	
-	@Override
-	public Optional<Usuario> findBy(String login) {
-
-		for (Usuario u : usuarios) {
-
-			if (u.getLogin().equals(login)) {
-
-				return Optional.of(u);
-			}
-		}
-
-		return Optional.empty();
-	}
-
-
 	@Override
 	public boolean checarResposta(String login, String resposta) {
 
@@ -133,6 +114,47 @@ public class UsuarioServiceImpl extends LoginService implements CrudGenericServi
 			}
 
 		}
+
+	}
+
+	@Override
+	public void validarEmail(String email) {
+
+		boolean temEspaco = false;
+		boolean temCaracterEspecial = false;
+		boolean temArroba = false;
+		boolean charDepois = true;
+		boolean charAntes = false;
+
+		for (int i = 0; i < email.length(); i++) {
+
+			char letra = email.charAt(i);
+
+			if (letra == ' ') {
+				temEspaco = true;
+			}
+			if (letra == '@') {
+				temArroba = true;
+
+				if (i != 0) {
+					charAntes = true;
+				}
+				if ((i == email.length() - 1) || (i == email.length() - 2)) {
+					charDepois = false;
+				}
+			}
+
+			if (letra == 'ç' || letra == 'é' || letra == 'ã' || letra == '!' || letra == '?' || letra == '}') {
+
+				temCaracterEspecial = true;
+			}
+
+		}
+
+		if (!(!temEspaco && !temCaracterEspecial && temArroba && charDepois && charAntes)) {
+
+			throw new RuntimeException("Email iválido");
+		} 
 
 	}
 }
