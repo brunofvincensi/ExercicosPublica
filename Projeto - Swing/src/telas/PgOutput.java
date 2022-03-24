@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
 public class PgOutput extends JFrame {
@@ -31,7 +32,7 @@ public class PgOutput extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblValorInicial = new JLabel("Valor inicial: " + valorIncicial);
+		JLabel lblValorInicial = new JLabel("Valor inicial: R$" + valorIncicial);
 		lblValorInicial.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblValorInicial.setBounds(10, 23, 259, 30);
 		contentPane.add(lblValorInicial);
@@ -52,6 +53,8 @@ public class PgOutput extends JFrame {
 
 		DefaultTableModel dtm = new DefaultTableModel();
 
+		 NumberFormat nf = NumberFormat.getCurrencyInstance();
+		
 		dtm.addColumn("Tipo");
 		dtm.addColumn("taxa mensal");
 		dtm.addColumn("imposto de renda");
@@ -63,11 +66,13 @@ public class PgOutput extends JFrame {
 			dtm.addRow(new Object[] {
 
 					i.getTipo(),
-					TaxaInvestimento.taxasMensais.get(i.getTipo()) + "%",
+					 TaxaInvestimento.taxasMensais.get(i.getTipo()) + "%",
 					i.getValorImposto() * 100 + "%", 
-					"R$" + i.getJurosBruto(),
-					"R$" + i.getJurosLiquido(),
-					"R$" + i.getValorTotal()
+					nf.format(i.getJurosBruto()) ,
+					nf.format(i.getJurosLiquido()) ,
+					nf.format(i.getValorTotal()) 
+					
+				
 
 			});	
 		}

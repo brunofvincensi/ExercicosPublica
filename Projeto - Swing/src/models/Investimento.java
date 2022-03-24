@@ -2,6 +2,7 @@ package models;
 
 import enums.TipoInvestimento;
 
+//Classe para armazenar os dados de um investimento
 public class Investimento {
 
 	private TipoInvestimento tipo;
