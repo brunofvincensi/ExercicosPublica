@@ -9,9 +9,8 @@ public class Marca {
 	
 	}
 	
-	public Marca(int codigo, String nome) {
+	public Marca(String nome) {
 	
-		this.codigo = codigo;
 		this.nome = nome;
 	}
 

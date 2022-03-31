@@ -8,11 +8,11 @@ public interface CrudGeneric <T, I>{
 	
 	List<T> findAll() throws SQLException;
 	
-	void save();
+	void save(T obj) throws SQLException;
 	
-	void update(T obj, I id);
+	void update(T obj, I id) throws SQLException;
 	
-	void delete(I id);
+	void delete(I id) throws SQLException;
 	
 	Optional<T> findById(I id) throws SQLException;
 

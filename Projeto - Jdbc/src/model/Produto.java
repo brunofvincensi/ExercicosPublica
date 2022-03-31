@@ -15,9 +15,8 @@ public class Produto {
 		
 	}
 
-	public Produto(int codigo, String nome, double valor, Categoria categoria, int quantidade, int marca_id) {
+	public Produto(String nome, double valor, Categoria categoria, int quantidade, int marca_id) {
 
-		this.codigo = codigo;
 		this.nome = nome;
 		this.valor = valor;
 		this.categoria = categoria;
@@ -71,6 +70,22 @@ public class Produto {
 
 	public void setMarca_id(int marca_id) {
 		this.marca_id = marca_id;
+	}
+	
+	public void aumentarQuantidade(int n) {
+		quantidade += n;
+	}
+	
+	public void diminuirQuantidade(int n) {
+		quantidade -= n;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "Produto [codigo=" + codigo + ", nome=" + nome + ", valor=" + valor + ", categoria=" + categoria
+				+ ", quantidade=" + quantidade + ", marca_id=" + marca_id + "]";
 	}
 	
 	

@@ -13,17 +13,22 @@ import java.sql.SQLException;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+import java.awt.SystemColor;
 
 public class PgLogin extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textLogin;
-	private JTextField textSenha;
+	private JPasswordField passwordField;
 
 	public PgLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setUndecorated(true);
 		setBounds(100, 100, 369, 284);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -43,11 +48,6 @@ public class PgLogin extends JFrame {
 		contentPane.add(textLogin);
 		textLogin.setColumns(10);
 
-		textSenha = new JTextField();
-		textSenha.setColumns(10);
-		textSenha.setBounds(131, 123, 162, 27);
-		contentPane.add(textSenha);
-
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -55,14 +55,16 @@ public class PgLogin extends JFrame {
 				boolean isAdmin = false;
 				try {
 					String login = textLogin.getText();
-					String senha = textSenha.getText();
+					
+					@SuppressWarnings("deprecation")
+					String senha = passwordField.getText();
 
 					if (login.equals("root") && senha.equals("admin")) {
 
 						isAdmin = true;
 
 					} else {
-						isAdmin = true;
+						isAdmin = false;
 						throw new RuntimeException("Login ou senha incorretos");
 					}
 
@@ -83,7 +85,10 @@ public class PgLogin extends JFrame {
 		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEntrar.setBounds(127, 187, 94, 32);
 		contentPane.add(btnEntrar);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(131, 130, 162, 27);
+		contentPane.add(passwordField);
 
 	}
-
 }
