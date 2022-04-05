@@ -203,3 +203,5 @@ function carregarCardsPorFiltro(){
 
 // Verificar se há algum dado no LocalSorage
 
+
+
