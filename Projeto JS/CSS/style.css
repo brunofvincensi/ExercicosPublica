@@ -1,0 +1,143 @@
+:root {
+    --verde: #14a68b;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: inline;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+#usuario-section,
+#marcas-section,
+#estatisticas-section{
+    display: none;
+}
+
+#form-login {
+    display: none;
+    padding: 20px;
+    background-color: var(--verde);
+    border-radius: 10px;
+
+
+}
+
+#form-login form {
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+
+}
+
+#form-login form input[type="text"] {
+
+    width: 300px;
+
+}
+
+#form-login form input[type="button"] {
+
+    width: 150px;
+    margin: auto;
+    border-radius: 5px;
+    background-color: black;
+
+
+}
+
+#vendas {
+    display: inline;
+
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: var(--verde);
+    min-height: 100vh;
+}
+
+
+#btn-alterar-produto,
+#btn-remover-produto,
+#btn-cancelar-produto,
+
+#btn-alterar-usuario,
+#btn-remover-usuario,
+#btn-cancelar-usuario {
+    display: none;
+}
+
+#produtos {
+    margin: 10px;
+    margin-top: 0;
+
+}
+
+
+main form {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    width: 400px;
+    margin: 10px;
+    gap: 5px;
+
+}
+
+#form-default input[type="number"] {
+
+    width: 300px;
+}
+
+#form-default input[type="button"] {
+
+    width: 100px;
+}
+
+
+footer {
+    height: 200px;
+    background-color: black;
+}
+
+.btn-produto {
+    width: 20%;
+    align-self: center;
+    min-width: 100px
+}
+
+
+.btn-adicionais input{
+    width: 32.6%;
+
+}
+
+
+
+
+::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+    width: 15px;
+ 
+    background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(89, 103, 110, 0.8);
+    border-radius: 10px;
+}
+
