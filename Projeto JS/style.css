@@ -1,10 +1,41 @@
 body{
     display: flex;
     
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
 }
 
-
 #form-login{
-    position: absolute;
-    transform: translate(+50vh, +50vh);
+   padding: 20px;
+   background-color: #14a68b;
+   border-radius: 10px;
+
+    
+}
+
+#form-login form{
+
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+   
+
+}
+
+#form-login form input[type = "text"]{
+
+    width: 300px;
+
+}
+
+#form-login form input[type = "submit"]{
+
+    width: 150px;
+    margin: auto;
+    border-radius: 5px;
+    background-color: black;
+
+
 }
