@@ -8,20 +8,23 @@ class Usuario {
     login;
     senha;
     nivel;
+    codigo;
     constructor(nome, login, senha, nivel) {
         this.nome = nome
         this.login = login
         this.senha = senha
         this.nivel = nivel
+        this.codigo = Math.floor(Math.random() * 10000)
     }
 }
 
 class Marca {
     codigo;
     nome;
-    constructor(nome, codigo) {
+    constructor(nome) {
         this.nome = nome
-        this.codigo = codigo
+        this.codigo =  Math.floor(Math.random() * 10000)
+
     }
 }
 
@@ -31,14 +34,30 @@ class Produto {
     estoque;
     codigoMarca;
     codigo;
-
-    constructor(nome, valor, estoque, codigoMarca) {
+    categoria;
+    constructor(nome, valor, estoque, codigoMarca, categoria) {
         this.nome = nome
         this.valor = valor
         this.estoque = estoque
         this.codigoMarca = codigoMarca
-        this.codigo = codigoProduto
-        codigoProduto++;
+        this.categoria = categoria
+        this.codigo =  Math.floor(Math.random() * 10000)
 
+    }
+}
+
+class Venda {
+    dia;
+    nomeProduto;
+    valorTotal;
+    quantidade;
+    codigoUsuario;
+    constructor(dia, nomeProduto, valorTotal, codigoUsuario, quantidade){
+        this.dia = dia;
+        this.quantidade = quantidade;
+        this.valorTotal = valorTotal;
+        this.nomeProduto = nomeProduto;
+        this.codigoUsuario = codigoUsuario;
+        this.quantidade = quantidade;
     }
 }

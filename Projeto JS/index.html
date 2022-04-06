@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <title>ProVenda</title>
+    <link rel="stylesheet" href="style.css">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -18,7 +18,10 @@
     <script src="classes.js"></script>
     <script src="database.js"></script>
     <script src="router.js"></script>
+    <script src="produtoCrud.js"></script>
     <script src="usuarioCrud.js"></script>
+    <script src="marcaCrud.js"></script>
+    <script src="estatisticas.js"></script>
     <script src="script.js"></script>
 
 </head>
@@ -27,8 +30,6 @@
 
 
     <div id="form-login">
-
-
 
         <div id="alerta">
 
@@ -40,8 +41,6 @@
             <input type="password" id="txt-senha" placeholder="Senha" onkeyup="ocultarAlerta()">
             <input type="button" class="btn btn-primary" value="Entrar" onclick="validaLogin()">
 
-
-
         </form>
     </div>
 
@@ -51,7 +50,7 @@
 
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#" onclick="goToMain()">Navbar</a>
+                    <a class="navbar-brand" href="#" onclick="goToMain()">ProVenda</a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -61,17 +60,14 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="goToUsuarios()">Usuarios</a>
+                                <a class="nav-link" id="go-to-usuarios" href="#" onclick="goToUsuarios()">Usuarios</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="goToMarcas()">Marcas</a>
+                                <a class="nav-link" id="go-to-marcas" href="#" onclick="goToMarcas()">Marcas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="goToEstatisticas()">Estatisticas</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link disabled">Disabled</a>
+                                <a class="nav-link" id="go-to-estatisticas" href="#"
+                                    onclick="goToEstatisticas()">Estatísticas</a>
                             </li>
                         </ul>
                         <form class="d-flex">
@@ -79,8 +75,6 @@
                                 placeholder="Nome do produto" aria-label="Search">
                             <button class="btn btn-outline-success" onclick="carregarCardsPorFiltro()"
                                 type="button">Search</button>
-                            <button class="btn btn-outline-warning" onclick="carregarCards()"
-                                type="button">Refresh</button>
                         </form>
                     </div>
                 </div>
@@ -91,138 +85,224 @@
 
         <main>
 
-         <div id="main-section">
+            <div id="main-section">
 
 
-            <div id="form-produto">
+                <div id="form-produto">
 
-                <form class="form-default">
-                    <h1>Produtos</h1>
-                    <div id="alerta-produto"></div>
-                    <input type="text" id="txt-nome-produto" class="form-control" onkeyup="ocultarAlertaProduto()"
-                        placeholder="Nome">
-                    <input type="number" id="num-valor" class="form-control" onkeyup="ocultarAlertaProduto()"
-                        placeholder="Valor">
-                    <input type="number" id="num-estoque" class="form-control" onkeyup="ocultarAlertaProduto()"
-                        placeholder="Estoque">
-                    <select name="marcas" id="marcas" class="form-select" aria-label="Default select example">
+                    <form class="form-default">
+                        <h1>Produtos</h1>
+                        <div id="alerta-produto"></div>
+                        <input type="text" id="txt-nome-produto" class="form-control" onkeyup="ocultarAlertaProduto()"
+                            placeholder="Nome">
+                        <input type="number" id="txt-valor-produto" class="form-control"
+                            onkeyup="ocultarAlertaProduto()" placeholder="Valor">
+                        <input type="number" id="txt-estoque-produto" class="form-control"
+                            onkeyup="ocultarAlertaProduto()" placeholder="Estoque">
+                        <select name="marcas" id="marcas" class="form-select" aria-label="Default select example">
 
+                        </select>
+                        <select name="categorias" id="categorias">
+                            <option value="televisao">Televisão</option>
+                        </select>
 
-                    </select>
-
-                    <input type="button" id="btnCadastrar" value="Cadastrar" class="btn btn-primary"
-                        onclick="cadastrar()">
-
-                        <div class="btn-adicionais">
-                    <input type="button" id="btn-alterar-produto" value="Alterar" class="btn btn-warning" onclick="alterarPrdouto()">
-                    <input type="button" id="btn-remover-produto" value="Remover" class="btn btn-danger" onclick="removerProduto()">
-                    <input type="button" id="btn-cancelar-produto" value="Cancelar" class="btn btn-secondary"
-                        onclick="resetarProduto()">
-
-                    </div>
-                </form>
-
-            </div>
-
-            <hr>
-
-            <div class="row row-cols-1 row-cols-md-3 g-4" id="produtos">
-
-
-            </div>
-        </div>
-
-        <div id="usuario-section">
-
-        
-
-            <div id="form-usuario">
-
-                <form class="form-default">
-                    <h1>Usuarios</h1>
-                    <div id="alerta-usuario"></div>
-                    <input type="text" id="txt-nome-usuario" class="form-control" onkeyup="ocultarAlertaUsuario()"
-                        placeholder="Nome">
-                    <input type="text" id="txt-login-usuario" class="form-control" onkeyup="ocultarAlertaUsuario()"
-                        placeholder="Login">
-                    <input type="text" id="txt-senha-usuario" class="form-control" onkeyup="ocultarAlertaUsuario()"
-                        placeholder="Senha">
-
-
-                    <select name="niveis" id="niveis" class="form-select" aria-label="Default select example">
-
-                        <option value="1">Administrador</option>
-                        <option value="2">Gerente</option>
-                        <option value="3">Vendedor</option>
-
-                    </select>
-
-                    <input type="button" id="btn-cadastrar-usuario" value="Cadastrar" class="btn btn-primary"
-                        onclick="cadastrarUsuario()">
+                        <input type="button" id="btn-cadastrar-produto" value="Cadastrar" class="btn btn-primary"
+                            onclick="cadastrarProduto()">
 
                         <div class="btn-adicionais">
-                    <input type="button" id="btn-alterar-usuario" value="Alterar" class="btn btn-warning" onclick="alterarUsuario()">
-                    <input type="button" id="btn-remover-usuario" value="Remover" class="btn btn-danger" onclick="removerUsuario()">
-                    <input type="button" id="btn-cancelar-usuario" value="Cancelar" class="btn btn-secondary"
-                        onclick="resetarUsuario()">
+                            <input type="button" id="btn-alterar-produto" value="Alterar" class="btn btn-warning"
+                                onclick="alterarPrdouto()">
+                            <input type="button" id="btn-remover-produto" value="Remover" class="btn btn-danger"
+                                onclick="removerProduto()">
+                            <input type="button" id="btn-cancelar-produto" value="Cancelar" class="btn btn-secondary"
+                                onclick="resetarProduto()">
+
+                        </div>
+                    </form>
+
+                </div>
+
+                <hr>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4" id="produtos">
+
+
+                </div>
+
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"> </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">Message:</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Send message</button>
+                            </div>
+                        </div>
                     </div>
-                </form>
+                </div>
+            </div>
+
+            <div id="usuario-section">
+
+                <div id="form-usuario">
+
+                    <form class="form-default">
+                        <h1>Usuarios</h1>
+                        <div id="alerta-usuario"></div>
+                        <input type="text" id="txt-nome-usuario" class="form-control" onkeyup="ocultarAlertaUsuario()"
+                            placeholder="Nome">
+                        <input type="text" id="txt-login-usuario" class="form-control" onkeyup="ocultarAlertaUsuario()"
+                            placeholder="Login">
+                        <input type="text" id="txt-senha-usuario" class="form-control" onkeyup="ocultarAlertaUsuario()"
+                            placeholder="Senha">
+
+
+                        <select name="niveis" id="niveis" class="form-select" aria-label="Default select example">
+
+                            <option value="2">Gerente</option>
+                            <option value="3">Vendedor</option>
+
+                        </select>
+
+                        <input type="button" id="btn-cadastrar-usuario" value="Cadastrar" class="btn btn-primary"
+                            onclick="cadastrarUsuario()">
+
+                        <div class="btn-adicionais">
+                            <input type="button" id="btn-alterar-usuario" value="Alterar" class="btn btn-warning"
+                                onclick="alterarUsuario()">
+                            <input type="button" id="btn-remover-usuario" value="Remover" class="btn btn-danger"
+                                onclick="removerUsuario()">
+                            <input type="button" id="btn-cancelar-usuario" value="Cancelar" class="btn btn-secondary"
+                                onclick="resetarUsuario()">
+                        </div>
+                    </form>
+
+                </div>
+
+                <hr>
+
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Login</th>
+                            <th scope="col">Senha</th>
+                            <th scope="col">Nivel</th>
+                            <th scope="col">Selecionar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-usuario">
+
+                    </tbody>
+                </table>
+
+
 
             </div>
 
-            <hr>
-
-            <table  class="table table-dark table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Login</th>
-                    <th scope="col">Senha</th>
-                    <th scope="col">Nivel</th>
-                    <th scope="col">Selecionar</th>
-                  </tr>
-                </thead>
-                <tbody id="tabela-usuario">
-                  
-                </tbody>
-              </table>
 
 
-
-        </div>
-
+            <div id="marcas-section">
 
 
-        <div id="marcas-section">
+                <div id="form-marca">
 
-            <h1>Marcas</h1>
+                    <form class="form-default">
+                        <h1>Marcas</h1>
+                        <div id="alerta-marca"></div>
+                        <input type="text" id="txt-codigo-marca" class="form-control" disabled placeholder="Código">
+                        <input type="text" id="txt-nome-marca" class="form-control" onkeyup="ocultarAlertaMarca()"
+                            placeholder="Nome">
+
+                        <input type="button" id="btn-cadastrar-marca" value="Cadastrar" class="btn btn-primary"
+                            onclick="cadastrarMarca()">
+
+                        <div class="btn-adicionais">
+                            <input type="button" id="btn-alterar-marca" value="Alterar" class="btn btn-warning"
+                                onclick="alterarMarca()">
+                            <input type="button" id="btn-remover-marca" value="Remover" class="btn btn-danger"
+                                onclick="removerMarca()">
+                            <input type="button" id="btn-cancelar-marca" value="Cancelar" class="btn btn-secondary"
+                                onclick="resetarMarca()">
+                        </div>
+                    </form>
+
+                </div>
+
+                <hr>
+
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Quantidade de produtos</th>
+                            <th scope="col">Selecionar</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-marca">
+
+                    </tbody>
+                </table>
+
+
+            </div>
+
+
+            <div id="estatisticas-section">
+
+                <form>
+                    <h1>Estatísticas</h1>
+                </form>
+
+                <hr>
+
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Vendas totais</th>
+                            <th scope="col">Visualizar</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-estatisticas">
+
+                    </tbody>
+                </table>
 
 
 
-        </div>
 
 
-        <div id="estatisticas-section">
-
-            <h1>Estatisticas</h1>
-
-
-
-        </div>
+            </div>
 
 
         </main>
-
 
         <footer>
 
         </footer>
     </div>
-
-
-
-
-
 </body>
 
 </html>

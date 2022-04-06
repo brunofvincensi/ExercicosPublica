@@ -2,9 +2,30 @@
 // Armazenar o indice do usuario
 var indiceUsuario;
 
-function salvarListaUsuarios(){
+function salvarListaUsuarios() {
+
+    if (usuarioAtual.nivel == 2) {
+
+
+        let usuariosSalvo =  JSON.parse(localStorage.getItem("usuarios"))
+
+        usuariosSalvo.forEach(x => console.log(x))
+
+        console.log("Usuario atual " + usuarioAtual.login)
+
+        let usuariosRestantes = JSON.parse(localStorage.getItem("usuarios")).filter(x => x.nivel == 1 || x.nivel == 2)
+
+        for (let u of usuariosRestantes) {
+
+                usuarios.push(u)
+            
+        }
+    }
+
     localStorage.setItem("usuarios", JSON.stringify(usuarios))
 }
+
+
 
 
 function cadastrarUsuario() {
@@ -16,7 +37,7 @@ function cadastrarUsuario() {
 
     let alertaUsuario = document.getElementById("alerta-usuario")
 
-    alertaUsuario.classList.remove("alert", "alert-danger", "alert-success")
+    ocultarAlertaUsuario()
 
     if (nome.value == "") {
         alertaUsuario.innerHTML = "Favor preencher o campo nome"
@@ -45,6 +66,8 @@ function cadastrarUsuario() {
 
         listarUsuarios()
         usuarios.forEach(x => console.log(x))
+
+        salvarListaUsuarios();
 
     }
 }
@@ -103,9 +126,6 @@ function selecionarUsuario(index) {
     let senha = document.getElementById("txt-senha-usuario")
     let niveis = document.getElementById("niveis")
 
-    indiceUsuario
-
-
     let usuario = usuarios[index]
 
     nome.value = usuario.nome
@@ -116,14 +136,84 @@ function selecionarUsuario(index) {
 }
 
 
+function alterarUsuario() {
+    let nome = document.getElementById("txt-nome-usuario");
+    let login = document.getElementById("txt-login-usuario")
+    let senha = document.getElementById("txt-senha-usuario")
+    let niveis = document.getElementById("niveis")
+
+    let alertaUsuario = document.getElementById("alerta-usuario")
+
+    ocultarAlertaUsuario()
+
+
+    if (usuarios[indiceUsuario].login == "admin") {
+
+        alertaUsuario.innerHTML = "Usuario admin não pode ser alterado"
+        alertaUsuario.classList.add("alert", "alert-danger")
+
+    }
+
+    else if (nome.value == "") {
+        alertaUsuario.innerHTML = "Favor preencher o campo nome"
+        alertaUsuario.classList.add("alert", "alert-danger")
+        nome.focus()
+    }
+    else if (login.value == "") {
+        alertaUsuario.innerHTML = "Favor preencher o campo login"
+        alertaUsuario.classList.add("alert", "alert-danger")
+        login.focus()
+    }
+    else if (senha.value == "") {
+        alertaUsuario.innerHTML = "Favor preencher o campo senha"
+        alertaUsuario.classList.add("alert", "alert-danger")
+        senha.focus()
+    } else {
+
+
+
+        let usuario = new Usuario(nome.value, login.value, senha.value, niveis.value)
+
+        let codigo = usuarios[indiceUsuario].codigo
+
+        usuario.codigo = codigo
+
+        usuarios[indiceUsuario] = usuario;
+        nome.focus()
+
+        alertaUsuario.innerHTML = "Usuario alterado"
+        alertaUsuario.classList.add("alert", "alert-success")
+        setTimeout(ocultarAlertaUsuario, 1000)
+        listarUsuarios();
+        salvarListaUsuarios();
+    }
+
+
+    resetarUsuario()
+    setTimeout(ocultarAlertaUsuario, 2000)
+
+}
+
+
 function removerUsuario() {
 
+    let alertaUsuario = document.getElementById("alerta-usuario")
+
+    if (usuarios[indiceUsuario].login == "admin") {
 
 
-    usuarios.splice(indiceUsuario, 1)
+        alertaUsuario.innerHTML = "Usuario admin não pode ser removido"
+        alertaUsuario.classList.add("alert", "alert-danger")
+    } else {
 
-    listarUsuarios()
+        usuarios.splice(indiceUsuario, 1)
+        alertaUsuario.innerHTML = "Usuario removido"
+        alertaUsuario.classList.add("alert", "alert-danger")
+    }
+
+    setTimeout(ocultarAlertaUsuario, 2000)
     resetarUsuario()
+    listarUsuarios()
     salvarListaUsuarios()
 }
 
@@ -138,6 +228,14 @@ function resetarUsuario() {
     document.getElementById("btn-remover-usuario").style.display = "none"
     document.getElementById("btn-cancelar-usuario").style.display = "none"
 
-    ocultarAlerta(document.getElementById("alerta-usuario"))
+}
+
+
+function resgatarUsuarios() {
+
+    if (localStorage.getItem("usuarios") != null) {
+        usuarios = JSON.parse(localStorage.getItem("usuarios"))
+        listarUsuarios();
+    }
 
 }

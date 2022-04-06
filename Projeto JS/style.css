@@ -5,10 +5,12 @@
 * {
     padding: 0;
     margin: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    display: inline;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -21,8 +23,12 @@ body {
     display: none;
 }
 
+
 #form-login {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
     background-color: var(--verde);
     border-radius: 10px;
@@ -36,13 +42,11 @@ body {
     flex-direction: column;
     gap: 5px;
 
-
 }
 
 #form-login form input[type="text"] {
 
     width: 300px;
-
 }
 
 #form-login form input[type="button"] {
@@ -56,7 +60,7 @@ body {
 }
 
 #vendas {
-    display: inline;
+    display: none;
 
     flex-direction: column;
 }
@@ -76,7 +80,12 @@ main {
 
 #btn-alterar-usuario,
 #btn-remover-usuario,
-#btn-cancelar-usuario {
+#btn-cancelar-usuario,
+
+#btn-alterar-marca,
+#btn-remover-marca,
+#btn-cancelar-marca
+ {
     display: none;
 }
 
@@ -109,23 +118,21 @@ main form {
 
 
 footer {
-    height: 200px;
+    height: 150px;
     background-color: black;
 }
 
 .btn-produto {
     width: 20%;
     align-self: center;
-    min-width: 100px
+    min-width: 120px
 }
 
 
 .btn-adicionais input{
-    width: 32.6%;
+    width: 32.5%;
 
 }
-
-
 
 
 ::-webkit-scrollbar-track {

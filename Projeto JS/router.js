@@ -14,6 +14,8 @@ function goToUsuarios(){
     document.getElementById(sections[1]).style.display = "block"
 
     actualSection = sections[1];
+
+    
     
 }
 
@@ -22,7 +24,7 @@ function goToMarcas(){
     document.getElementById(actualSection).style.display = "none"
     
     document.getElementById(sections[2]).style.display = "block"
-        
+    listarMarcas()
     actualSection = sections[2];
     
 }
@@ -35,6 +37,8 @@ function goToEstatisticas(){
     document.getElementById(sections[3]).style.display = "block"
         
     actualSection = sections[3];
+
+    listarVendasTotais()
     
 }
 
@@ -42,6 +46,8 @@ function goToEstatisticas(){
 
 function goToMain(){
 
+    resgatarProdutos()
+    carregarCards()
     document.getElementById(actualSection).style.display = "none"
     document.getElementById("main-section").style.display = "block"
     actualSection = sections[0];
