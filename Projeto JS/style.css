@@ -1,12 +1,19 @@
 :root {
-    --verde: #14a68b;
+    --azul : #30a1e3;
 }
 
 * {
     padding: 0;
     margin: 0;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Cinzel', serif; 
+}
+
+h1{
+
+font-family: 'Cinzel', serif;
+font-size: large;
+color: white;
 }
 
 body {
@@ -14,7 +21,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-
 }
 
 #usuario-section,
@@ -30,10 +36,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: var(--verde);
+    background-color: var(--azul);
     border-radius: 10px;
-
-
 }
 
 #form-login form {
@@ -41,7 +45,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
-
 }
 
 #form-login form input[type="text"] {
@@ -54,14 +57,13 @@ body {
     width: 150px;
     margin: auto;
     border-radius: 5px;
-    background-color: black;
-
+    font-size: large;
+    margin-top: 15px;
 
 }
 
 #vendas {
     display: none;
-
     flex-direction: column;
 }
 
@@ -69,10 +71,9 @@ main {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    background-color: var(--verde);
+    background-image: url("https://www.wallpapertip.com/wmimgs/167-1677724_technology-website-background-images-hd.jpg");
     min-height: 100vh;
 }
-
 
 #btn-alterar-produto,
 #btn-remover-produto,
@@ -92,7 +93,6 @@ main {
 #produtos {
     margin: 10px;
     margin-top: 0;
-
 }
 
 
@@ -103,19 +103,15 @@ main form {
     width: 400px;
     margin: 10px;
     gap: 5px;
-
 }
 
 #form-default input[type="number"] {
-
     width: 300px;
 }
 
 #form-default input[type="button"] {
-
     width: 100px;
 }
-
 
 footer {
     height: 150px;
@@ -128,11 +124,43 @@ footer {
     min-width: 120px
 }
 
-
 .btn-adicionais input{
     width: 32.5%;
+}
+
+img{
+   height: 350px;
+}
+
+
+
+footer{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    justify-content: space-evenly;
+    color: white;
+    
+}
+
+#contatos{
+    color: white;
+    list-style: none;
+
+
 
 }
+
+#contatos li a{
+    color: white;
+    text-decoration: none;
+}
+
+#endereco{
+    width: 300px;
+    
+}
+
 
 
 ::-webkit-scrollbar-track {
@@ -147,4 +175,3 @@ footer {
     background: rgb(89, 103, 110, 0.8);
     border-radius: 10px;
 }
-

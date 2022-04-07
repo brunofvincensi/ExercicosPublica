@@ -2,7 +2,6 @@ var codigoMarca = 1;
 var codigoProduto = 1;
 var niveis = [1, 2, 3];
 
-
 class Usuario {
     nome;
     login;

@@ -25,9 +25,6 @@ function salvarListaUsuarios() {
     localStorage.setItem("usuarios", JSON.stringify(usuarios))
 }
 
-
-
-
 function cadastrarUsuario() {
 
     let nome = document.getElementById("txt-nome-usuario");
@@ -76,8 +73,6 @@ function ocultarAlertaUsuario() {
     var alertaProduto = document.getElementById("alerta-usuario")
     ocultarAlerta(alertaProduto)
 }
-
-
 
 function listarUsuarios() {
 
@@ -135,7 +130,6 @@ function selecionarUsuario(index) {
 
 }
 
-
 function alterarUsuario() {
     let nome = document.getElementById("txt-nome-usuario");
     let login = document.getElementById("txt-login-usuario")
@@ -170,8 +164,6 @@ function alterarUsuario() {
         senha.focus()
     } else {
 
-
-
         let usuario = new Usuario(nome.value, login.value, senha.value, niveis.value)
 
         let codigo = usuarios[indiceUsuario].codigo
@@ -188,12 +180,10 @@ function alterarUsuario() {
         salvarListaUsuarios();
     }
 
-
     resetarUsuario()
     setTimeout(ocultarAlertaUsuario, 2000)
 
 }
-
 
 function removerUsuario() {
 
@@ -229,7 +219,6 @@ function resetarUsuario() {
     document.getElementById("btn-cancelar-usuario").style.display = "none"
 
 }
-
 
 function resgatarUsuarios() {
 

@@ -44,6 +44,8 @@ function cadastrarProduto() {
     else {
 
 
+        console.log(categorias.value)
+
         let produto = new Produto(nome.value, valor.value, estoque.value, codigoMarca.value, categorias.value)
 
         produtos.push(produto);
@@ -239,8 +241,8 @@ function criarDivs(produtos) {
 
 
             divProdutos.innerHTML += `<div class="col">
-            <div class="card">
-              <img src="https://th.bing.com/th/id/OIP.9_6iRUb1faXikdfnTU-HxwHaE8?pid=ImgDet&rs=1" class="card-img-top" alt="...">
+            <div class="card card-produto">
+              <img src="images/${produtos[i].categoria}.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h3 class="card-title">${produtos[i].nome}</h3>
                 <p class="card-text">R$${produtos[i].valor}</p>
@@ -260,8 +262,8 @@ function criarDivs(produtos) {
 
 
             divProdutos.innerHTML += `<div class="col">
-        <div class="card">
-          <img src="https://th.bing.com/th/id/OIP.9_6iRUb1faXikdfnTU-HxwHaE8?pid=ImgDet&rs=1" class="card-img-top" alt="...">
+        <div class="card card-produto">
+          <img src="images/${produtos[i].categoria}.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h3 class="card-title">${produtos[i].nome}</h3>
             <p class="card-text">R$${produtos[i].valor}</p>
@@ -282,19 +284,26 @@ function criarDivs(produtos) {
 function carregarCardsPorFiltro() {
 
     let nomeFiltro = document.getElementById("nome-filtro").value
+    let categoriaFiltro = document.getElementById("categoria-filtro").value
     goToMain()
 
-    console.log(nomeFiltro)
+    let produtosFiltro = []
+
+    produtosFiltro = produtos
+
+    limparCards()
 
     if (nomeFiltro != null && nomeFiltro != "") {
 
-
-        limparCards()
-        let produtosFiltro = produtos.filter(p => p.nome.toUpperCase() == nomeFiltro.toUpperCase())
-
-
-        criarDivs(produtosFiltro)
+        produtosFiltro = produtosFiltro.filter(p => p.nome.toUpperCase() == nomeFiltro.toUpperCase())
     }
+
+    if(categoriaFiltro != "0"){
+        produtosFiltro = produtosFiltro.filter(p => p.categoria == categoriaFiltro)           
+    }
+
+
+    criarDivs(produtosFiltro)
 
 }
 
@@ -314,7 +323,7 @@ function venderProduto(index) {
 
         let valorTotal = produto.valor * quantidade;
 
-        let venda = new Venda(Date.now(), produto.nome , valorTotal, usuarioAtual.codigo, quantidade)
+        let venda = new Venda(new Date().toDateString(), produto.nome , valorTotal, usuarioAtual.codigo, quantidade)
 
         vendas.push(venda)
 

@@ -1,5 +1,5 @@
+// Armazenar o usuario logado
 let usuarioAtual;
-
 
 
 function validaLogin() {
@@ -11,7 +11,6 @@ function validaLogin() {
     var alerta = document.getElementById("alerta")
     ocultarAlerta(alerta);
     alerta.classList.remove("alert", "alert-danger", "alert-success")
-
 
     if (login.value == "") {
 
@@ -41,13 +40,10 @@ function validaLogin() {
 
         if (existe) {
 
-
             usuarioAtual = usuarioLogado;
 
-
             if(usuarioLogado.nivel == 2){
-
-                
+           
                 let marcas = document.getElementById("go-to-marcas")
                 marcas.classList += " disabled"
 
@@ -56,8 +52,6 @@ function validaLogin() {
                 usuarios = usuarios.filter(u => u.nivel == 3)
                 listarUsuarios()
                 
-         
-
             }else if(usuarioLogado.nivel == 3){
                 let marcas = document.getElementById("go-to-marcas")
                 marcas.classList += " disabled" 
@@ -74,11 +68,7 @@ function validaLogin() {
 
                 let cadastrar = document.getElementById("form-produto")
                 cadastrar.style.display = "none"
-
-              
-            }
-            else{
-          
+      
             }
 
             goToMain()
@@ -109,23 +99,13 @@ function ocultarAlerta(alerta) {
     alerta.innerHTML = "";
 }
 
-
-
 window.onload = () => {
-
 
    // usuarios.push(new Usuario("Bruno", "admin", "admin", 1))
    // salvarListaUsuarios()
-
 
     resgatarProdutos()
     resgatarUsuarios()
     resgatarMarcas()
     resgatarVendas()
 }
-
-
-// Verificar se há algum dado no LocalSorage
-
-
-

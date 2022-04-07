@@ -2,21 +2,18 @@ function listarVendasTotais() {
 
     let estatisticas = document.getElementById("tabela-estatisticas");
 
-
-
     // Limpar tbody
     estatisticas.innerHTML = "";
 
+    let usuariosSalvos = JSON.parse(localStorage.getItem("usuarios"))
 
-
-    for (let i = 0; i < usuarios.length; i++) {
-
+    for (let i = 0; i < usuariosSalvos.length; i++) {
 
         let valorTotal = 0;
 
         for (let venda of vendas) {
 
-            if (venda.codigoUsuario == usuarios[i].codigo) {
+            if (venda.codigoUsuario == usuariosSalvos[i].codigo) {
                 valorTotal += venda.valorTotal
             }
         }
@@ -30,27 +27,18 @@ function listarVendasTotais() {
         var colunaSelecionar = linha.insertCell(2)
 
 
-        colunaNome.innerHTML = usuarios[i].nome
+        colunaNome.innerHTML = usuariosSalvos[i].nome
         colunaValorTotal.innerHTML = "R$" + valorTotal
 
-
-
-        // Enviar dados do JSON
-
-        colunaSelecionar.innerHTML = `<button class="btn btn-success" onclick="selecionarEstatistica('${i}')"> Selecionar </button>`
-
-
+        colunaSelecionar.innerHTML = `<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+         onclick="selecionarEstatistica('${i}')"> Selecionar </button>`
     }
-
-
-
 }
 
 function selecionarEstatistica(index) {
 
 
     let vendasUsuario = []
-
 
 
     for (let venda of vendas) {
@@ -62,20 +50,15 @@ function selecionarEstatistica(index) {
         }
     }
 
-    let result = "";
+let result = document.getElementById("result")
+
+result.innerHTML = ""
 
 
-    for (let i = 0; i < vendasUsuario.length; i++) {
+for (let i = 0; i < vendasUsuario.length; i++) {
 
-        result += "Produto: " + vendasUsuario[i].nomeProduto + ", valor total: " + vendasUsuario[i].valorTotal + ", dia: " + vendasUsuario[i].dia + "; \n"
-
-    }
-
-    alert(result)
-
-
+    result.innerHTML +=  "Produto: " + vendasUsuario[i].nomeProduto + ", valor total: R$" + vendasUsuario[i].valorTotal + ", dia: " + vendasUsuario[i].dia + "</br>"
 
 }
 
-
-
+}

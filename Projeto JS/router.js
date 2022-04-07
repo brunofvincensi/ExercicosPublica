@@ -10,19 +10,15 @@ let actualSection = sections[0];
 function goToUsuarios(){
 
     document.getElementById(actualSection).style.display = "none"
-    
     document.getElementById(sections[1]).style.display = "block"
-
+    listarUsuarios()
     actualSection = sections[1];
 
-    
-    
 }
 
 function goToMarcas(){
 
-    document.getElementById(actualSection).style.display = "none"
-    
+    document.getElementById(actualSection).style.display = "none"  
     document.getElementById(sections[2]).style.display = "block"
     listarMarcas()
     actualSection = sections[2];
@@ -33,13 +29,9 @@ function goToMarcas(){
 function goToEstatisticas(){
 
     document.getElementById(actualSection).style.display = "none"
-    
     document.getElementById(sections[3]).style.display = "block"
-        
-    actualSection = sections[3];
-
     listarVendasTotais()
-    
+    actualSection = sections[3];
 }
 
 

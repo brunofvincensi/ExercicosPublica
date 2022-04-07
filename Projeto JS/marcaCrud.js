@@ -1,10 +1,9 @@
-// Armazenar o indice do usuario
+// Armazenar o indice da marca
 var indiceMarca;
 
 function salvarListaMarcas() {
     localStorage.setItem("marcas", JSON.stringify(marcas))
 }
-
 
 function cadastrarMarca() {
     console.log("olaa")
@@ -41,8 +40,6 @@ function ocultarAlertaMarca() {
     var alertaMarca = document.getElementById("alerta-marca")
     ocultarAlerta(alertaMarca)
 }
-
-
 
 function listarMarcas() {
 
@@ -85,7 +82,6 @@ function qntdProdutos(codigoMarca) {
         }
     }
     return cont;
-
 }
 
 function selecionarMarca(index) {
@@ -107,14 +103,10 @@ function selecionarMarca(index) {
     nome.value = marca.nome
     codigo.value = marca.codigo
 
-
 }
-
 
 function alterarMarca() {
     let nome = document.getElementById("txt-nome-marca");
-
-
     let alertaMarca = document.getElementById("alerta-marca")
 
     ocultarAlertaMarca()
@@ -137,7 +129,7 @@ function alterarMarca() {
 
         alertaMarca.innerHTML = "Marca alterada"
         alertaMarca.classList.add("alert", "alert-success")
-        setTimeout(ocultarAlertaMarca, 1000)
+        setTimeout(ocultarAlertaMarca, 2000)
         listarMarcas();
         salvarListaMarcas();
     }
